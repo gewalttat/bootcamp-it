@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IT Industry: Absolute Engineering</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
+    
+    <style>
+        /* --- CORE TYPOGRAPHY & COLORS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@500;800&display=swap');
+
+        :root {
+            --bg-color: #000000;
+            --text-main: #ffffff;
+            --text-muted: #8e8e93;
+            --glass-bg: rgba(15, 15, 18, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            
+            --blue: #0a84ff;
+            --purple: #bf5af2;
+            --green: #30d158;
+            --red: #ff453a;
+            --orange: #ff9f0a;
+        }
+
+        body { background: var(--bg-color); margin: 0; overflow: hidden; }
+
+        /* --- VIBRANT AURORA BACKGROUND --- */
+        .aurora-container {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 1; overflow: hidden; background: #000; pointer-events: none;
+        }
+        .aurora-blob {
+            position: absolute; border-radius: 50%; filter: blur(160px);
+            opacity: 0.5; mix-blend-mode: screen;
+            animation: float-blob 30s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .blob-1 { background: #0040dd; width: 80vw; height: 80vw; top: -30vh; left: -20vw; }
+        .blob-2 { background: #7928ca; width: 70vw; height: 70vw; bottom: -30vh; right: -20vw; animation-delay: -5s; }
+        .vignette {
+            position: fixed; inset: 0; z-index: 2; pointer-events: none;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.95) 120%);
+        }
+
+        /* --- GLOBAL REVEAL OVERRIDES (MASSIVE TEXT) --- */
+        .reveal { position: relative; z-index: 3; font-family: 'Inter', sans-serif; color: var(--text-main); }
+        
+        .reveal h1 { font-size: 6.5em; line-height: 1; font-weight: 900; letter-spacing: -0.05em; margin-bottom: 20px; }
+        .reveal h2 { font-size: 5em; line-height: 1.1; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 30px; }
+        .reveal h3 { font-size: 3.5em; font-weight: 800; margin-bottom: 15px; }
+        
+        .reveal p { 
+            font-size: 2.2em; color: #ffffff; line-height: 1.4; 
+            font-weight: 600; margin-bottom: 30px; text-align: left;
+        }
+        
+        .gradient-text { 
+            background: linear-gradient(135deg, #fff 0%, #777 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+        }
+
+        /* --- LAYOUTS & GLASS CARDS --- */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; height: 100%; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; height: 100%; }
+        
+        .glass-card {
+            background: var(--glass-bg); backdrop-filter: blur(50px); -webkit-backdrop-filter: blur(50px);
+            border: 1px solid var(--glass-border); border-top: 1px solid rgba(255,255,255,0.2);
+            border-radius: 40px; padding: 60px; text-align: left;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.7); display: flex; flex-direction: column;
+            transition: transform 0.3s ease; box-sizing: border-box; height: 100%;
+        }
+
+        .badge {
+            display: inline-flex; padding: 10px 25px; background: rgba(255,255,255,0.1);
+            border-radius: 100px; font-size: 1.2em; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 2px; color: #fff; margin-bottom: 40px; border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* --- CUSTOM VISUALS --- */
+        /* AI Animated Core (Slide 4) */
+        .ai-core { position: relative; width: 300px; height: 300px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
+        .core-center { width: 80px; height: 80px; background: var(--purple); border-radius: 50%; box-shadow: 0 0 80px var(--purple); animation: pulse 2s infinite alternate; }
+        .orbit { position: absolute; width: 100%; height: 100%; border: 2px dashed rgba(255,255,255,0.2); border-radius: 50%; animation: spin 10s linear infinite; }
+        .orbit-2 { width: 140%; height: 140%; animation: spin 15s linear infinite reverse; border-color: rgba(191, 90, 242, 0.4); }
+        .electron { position: absolute; top: -10px; left: 50%; width: 20px; height: 20px; background: #fff; border-radius: 50%; box-shadow: 0 0 20px #fff; }
+        
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.2); opacity: 1; } }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* 3D Isometric Architecture (Slide 7) */
+        .iso-container {
+            width: 100%; height: 600px; perspective: 1500px; display: flex; align-items: center; justify-content: center;
+        }
+        .iso-grid {
+            width: 400px; height: 400px; position: relative;
+            transform: rotateX(60deg) rotateZ(-45deg); transform-style: preserve-3d;
+        }
+        .iso-layer {
+            position: absolute; inset: 0; background: rgba(255,255,255,0.9);
+            border: 4px solid #000; border-radius: 20px; display: flex; align-items: center; justify-content: center;
+            font-size: 3em; font-weight: 900; color: #000; box-shadow: -20px 20px 50px rgba(0,0,0,0.5);
+            transition: 0.5s;
+        }
+        .layer-1 { transform: translateZ(0px); background: #f0f0f0; }
+        .layer-2 { transform: translateZ(120px); background: #fff; border-color: var(--blue); color: var(--blue); }
+        .layer-3 { transform: translateZ(240px); background: #111; color: #fff; border-color: #555; }
+
+        /* Office Carousel (Slide 9) */
+        .carousel-wrapper { overflow: hidden; width: 100%; height: 100%; border-radius: 40px; position: relative; }
+        .carousel-track { display: flex; height: 100%; width: 300%; animation: slide 20s infinite linear; }
+        .carousel-track img { width: 33.333%; height: 100%; object-fit: cover; }
+        @keyframes slide { 0% { transform: translateX(0); } 100% { transform: translateX(-66.666%); } }
+        
+        /* Trunk-based Dev SVG (Slide 12) */
+        .git-branch { width: 100%; height: 300px; margin-top: 50px; }
+
+        /* Timeline (Slide 13) */
+        .timeline { display: flex; flex-direction: column; gap: 40px; border-left: 6px solid #333; margin-left: 20px; padding-left: 40px; }
+        .timeline-item { position: relative; }
+        .timeline-item::before { content: ''; position: absolute; left: -57px; top: 10px; width: 28px; height: 28px; background: var(--blue); border-radius: 50%; box-shadow: 0 0 30px var(--blue); }
+        .time-label { font-family: 'JetBrains Mono', monospace; font-size: 1.5em; font-weight: 800; color: var(--blue); margin-bottom: 10px; }
+        
+        /* Light Slide Fix */
+        .light-slide .aurora-container { opacity: 0; }
+        .light-slide h2 { color: #000 !important; }
+        .light-slide p { color: #222 !important; }
+        
+        /* Snake Game Controls */
+        .controls { display: grid; grid-template-columns: 80px 80px 80px; gap: 10px; justify-content: center; margin-top: 30px; }
+        .ctrl-btn { background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); color: #fff; font-size: 1.5em; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: 900;}
+        .ctrl-btn:active { background: rgba(255,255,255,0.3); }
+
+    </style>
+</head>
+<body>
+
+    <div class="aurora-container">
+        <div class="aurora-blob blob-1"></div><div class="aurora-blob blob-2"></div>
+    </div>
+    <div class="vignette"></div>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <section data-transition="fade">
+                <div class="grid-2">
+                    <div style="text-align: left;">
+                        <div class="badge fragment fade-down">Global Overview</div>
+                        <h1 class="gradient-text fragment fade-up">Цифровая<br>Инженерия</h1>
+                        <p class="fragment fade-up">
+                            IT — это кровеносная система мировой экономики. От банков до логистики.
+                        </p>
+                    </div>
+                    <div class="glass-card parallax-el fragment zoom-in" data-speed="1.5" style="justify-content: center; align-items: center;">
+                        <div style="font-size: 6em; font-weight: 900; line-height: 1;">$5.2T</div>
+                        <div style="font-size: 2em; color: var(--text-muted); margin-top: 20px;">Объем рынка</div>
+                    </div>
+                </div>
+            </section>
+
+            <section data-transition="slide">
+                <div class="badge">Ресурс 21 Века</div>
+                <h2 style="margin-bottom: 60px;">Данные дороже нефти.</h2>
+                <div class="grid-3">
+                    <div class="glass-card">
+                        <div style="font-size: 5em; margin-bottom: 30px;">⚡</div>
+                        <h3>Highload</h3>
+                        <p style="font-size: 1.2em;">Миллионы запросов в секунду.</p>
+                    </div>
+                    <div class="glass-card">
+                        <div style="font-size: 5em; margin-bottom: 30px;">🧬</div>
+                        <h3>Big Data</h3>
+                        <p style="font-size: 1.2em;">Анализ поведения масс.</p>
+                    </div>
+                    <div class="glass-card">
+                        <div style="font-size: 5em; margin-bottom: 30px;">🛡️</div>
+                        <h3>Security</h3>
+                        <p style="font-size: 1.2em;">Цифровые границы.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section data-transition="convex">
+                <div class="badge">Структура</div>
+                <h2 style="margin-bottom: 60px;">Анатомия Сервиса</h2>
+                <div class="grid-3">
+                    <div class="glass-card parallax-el" style="border-top: 8px solid var(--blue);">
+                        <h3 style="color: var(--blue); font-size: 3em;">Frontend</h3>
+                        <p style="font-size: 1.5em; line-height: 1.4;">Витрина. Анимации и отклик в браузере.</p>
+                    </div>
+                    <div class="glass-card parallax-el" style="border-top: 8px solid var(--purple);">
+                        <h3 style="color: var(--purple); font-size: 3em;">Backend</h3>
+                        <p style="font-size: 1.5em; line-height: 1.4;">Двигатель. Базы данных и серверы.</p>
+                    </div>
+                    <div class="glass-card parallax-el" style="border-top: 8px solid var(--green);">
+                        <h3 style="color: var(--green); font-size: 3em;">Mobile</h3>
+                        <p style="font-size: 1.5em; line-height: 1.4;">Доступность. iOS и Android системы.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section data-transition="zoom">
+                <div class="grid-2">
+                    <div style="text-align: left;">
+                        <div class="badge" style="border-color: var(--purple); color: var(--purple);">Innovation</div>
+                        <h2 style="font-size: 4.5em; color: #fff;">Эра Нейросетей</h2>
+                        <p style="font-size: 2.2em; color: #fff; margin-bottom: 30px;">Искусственный интеллект меняет правила игры. Алгоритмы пишут код, рисуют макеты и управляют вниманием.</p>
+                        <p style="font-size: 2.2em; color: var(--purple);">Это перемножение огромных матриц.</p>
+                    </div>
+                    
+                    <div class="glass-card parallax-el" data-speed="1.5" style="justify-content: center; align-items: center; border: none; background: transparent; box-shadow: none;">
+                        <div class="ai-core">
+                            <div class="core-center"></div>
+                            <div class="orbit"><div class="electron"></div></div>
+                            <div class="orbit orbit-2"><div class="electron"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section data-transition="slide">
+                <div style="text-align: left; padding-right: 20%;">
+                    <div class="badge" style="border-color: var(--orange); color: var(--orange);">Infrastructure</div>
+                    <h2 style="font-size: 5em; color: #fff; margin-bottom: 40px;">DevOps Инженерия</h2>
+                    <p style="font-size: 2.5em; color: #fff; line-height: 1.4;">Как код попадает с ноутбука разработчика на миллионы устройств за секунды?</p>
+                    <p style="font-size: 2.5em; color: var(--orange); line-height: 1.4;">Это заводы по автоматической сборке, тестированию и доставке кода.</p>
+                </div>
+            </section>
+
+            <section data-transition="slide">
+                <div style="text-align: right; padding-left: 20%;">
+                    <div class="badge" style="border-color: var(--blue); color: var(--blue);">Hardware</div>
+                    <h2 style="font-size: 5.5em; color: #fff; margin-bottom: 40px;">The Cloud</h2>
+                    <p style="font-size: 2.5em; color: #fff; line-height: 1.4;">Интернет — это не магия. Это толстые кабели на дне океана.</p>
+                    <p style="font-size: 2.5em; color: var(--blue); line-height: 1.4;">И огромные здания, забитые серверами, мощность которых мы арендуем.</p>
+                </div>
+            </section>
+
+            <section data-background-color="#ffffff" data-transition="fade" class="light-slide">
+                <div class="grid-2">
+                    <div style="text-align: left;">
+                        <div class="badge">System Design</div>
+                        <h2 style="font-size: 5em; font-weight: 900; margin-bottom: 30px;">Инженерное<br>Мышление</h2>
+                        <p style="font-size: 2em; line-height: 1.5;">Главная задача — спроектировать систему, которая выдержит нагрузку в миллион пользователей и не упадет.</p>
+                    </div>
+                    
+                    <div class="parallax-el" data-speed="2">
+                        <div class="iso-container">
+                            <div class="iso-grid">
+                                <div class="iso-layer layer-1">Database</div>
+                                <div class="iso-layer layer-2">API Server</div>
+                                <div class="iso-layer layer-3">Balancer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section data-transition="convex">
+                <div style="text-align: center; margin-bottom: 80px;">
+                    <div class="badge">Рынок РФ</div>
+                    <h2>Лидеры Индустрии</h2>
+                </div>
+
+                <div class="grid-2">
+                    <div class="glass-card" style="border-left: 10px solid #fc3f1d;">
+                        <h3 style="font-size: 4em;">Yandex</h3>
+                        <p style="font-size: 1.8em;">Поиск, алгоритмы, беспилотники.</p>
+                    </div>
+                    <div class="glass-card" style="border-left: 10px solid #ffcc00;">
+                        <h3 style="font-size: 4em;">Fintech</h3>
+                        <p style="font-size: 1.8em;">Т-Банк, Сбер. Экосистемы.</p>
+                    </div>
+                    <div class="glass-card" style="border-left: 10px solid #30d158;">
+                        <h3 style="font-size: 4em;">X5 Tech</h3>
+                        <p style="font-size: 1.8em;">Big Data и логистика ритейла.</p>
+                    </div>
+                    <div class="glass-card" style="border-left: 10px solid #bf5af2;">
+                        <h3 style="font-size: 4em;">E-Com</h3>
+                        <p style="font-size: 1.8em;">Ozon, WB. Огромные нагрузки.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- <section data-transition="slide" style="padding: 0;">
+                <div class="carousel-wrapper">
+                    <div style="position: absolute; top: 100px; left: 100px; z-index: 10;">
+                        <h2 style="font-size: 6em; color: #fff; text-shadow: 0 10px 30px rgba(0,0,0,0.8);">Свобода и<br>Комфорт</h2>
+                        <p style="font-size: 2.5em; color: #fff; text-shadow: 0 5px 20px rgba(0,0,0,0.9); max-width: 800px;">
+                            Топовые офисы, удаленка с Бали, ДМС и мощная техника от компании.
+                        </p>
+                    </div>
+                    
+                    <div class="carousel-track">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1600&auto=format&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1600&auto=format&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1600&auto=format&fit=crop">
+                    </div>
+                </div>
+            </section> -->
+
+            <section data-transition="slide">
+                <div class="badge" style="border-color: var(--green); color: var(--green);">Экономика</div>
+                <h2 style="margin-bottom: 80px;">Оценка Рынка</h2>
+                
+                <div class="grid-3">
+                    <div class="glass-card" style="text-align: center;">
+                        <h3 style="color: var(--text-muted);">Junior</h3>
+                        <div style="font-size: 5em; font-weight: 900; margin: 30px 0;">80k+</div>
+                        <p style="font-size: 1.5em; text-align: center;">Старт (1 год)</p>
+                    </div>
+                    <div class="glass-card" style="text-align: center; border-color: var(--blue); transform: scale(1.1);">
+                        <h3 style="color: var(--blue);">Middle</h3>
+                        <div style="font-size: 6em; font-weight: 900; margin: 30px 0;">220k+</div>
+                        <p style="font-size: 1.5em; text-align: center;">Основа (3 года)</p>
+                    </div>
+                    <div class="glass-card" style="text-align: center;">
+                        <h3 style="color: var(--purple);">Senior</h3>
+                        <div style="font-size: 5em; font-weight: 900; margin: 30px 0;">450k+</div>
+                        <p style="font-size: 1.5em; text-align: center;">Эксперт (5+ лет)</p>
+                    </div>
+                </div>
+            </section>
+
+            <section data-transition="slide">
+                <div class="grid-2">
+                    <div style="text-align: left;">
+                        <div class="badge">Teamwork</div>
+                        <h2 style="font-size: 4em; color: #fff;">Не только код</h2>
+                        <p style="font-size: 2em; color: #fff; margin-bottom: 20px;">Одиночек больше нет. Создание продукта — это командный спорт.</p>
+                        <p style="font-size: 2em; color: var(--blue);">Agile, Code Review, Коммуникация.</p>
+                    </div>
+                    <div class="glass-card parallax-el" style="justify-content: center; background: transparent; box-shadow: none; border: none;">
+                        <svg class="git-branch" viewBox="0 0 500 200">
+                            <path d="M 20 150 L 480 150" stroke="var(--blue)" stroke-width="12" stroke-linecap="round" />
+                            <path d="M 100 150 Q 150 50 200 50 L 300 50 Q 350 50 400 150" stroke="var(--green)" stroke-width="8" fill="none" stroke-linecap="round" />
+                            <circle cx="100" cy="150" r="15" fill="#fff" />
+                            <circle cx="200" cy="50" r="12" fill="#fff" />
+                            <circle cx="300" cy="50" r="12" fill="#fff" />
+                            <circle cx="400" cy="150" r="15" fill="#fff" />
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <section data-transition="slide">
+                <div class="grid-2">
+                    <div>
+                        <h2 style="font-size: 4em;">Эволюция<br>Инженера</h2>
+                        <p style="font-size: 2em;">Главный навык 21 века — способность учиться самостоятельно.</p>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item fragment fade-left">
+                            <div class="time-label">0 Hours</div>
+                            <h3 style="font-size: 2.5em; color: #fff; margin:0;">Hello World</h3>
+                            <p style="font-size: 1.5em; margin:0;">Первая строчка кода (Курсы/ВУЗ)</p>
+                        </div>
+                        <div class="timeline-item fragment fade-left">
+                            <div class="time-label">1,000 Hours</div>
+                            <h3 style="font-size: 2.5em; color: #fff; margin:0;">Pet Projects</h3>
+                            <p style="font-size: 1.5em; margin:0;">Создание ботов, сайтов и игр.</p>
+                        </div>
+                        <div class="timeline-item fragment fade-left">
+                            <div class="time-label">5,000 Hours</div>
+                            <h3 style="font-size: 2.5em; color: #fff; margin:0;">Middle Dev</h3>
+                            <p style="font-size: 1.5em; margin:0;">Сложные коммерческие задачи.</p>
+                        </div>
+                        <div class="timeline-item fragment fade-left" style="opacity: 1;">
+                            <div class="time-label" style="color: var(--purple);">10,000 Hours</div>
+                            <h3 style="font-size: 2.5em; color: #fff; margin:0;">Architect</h3>
+                            <p style="font-size: 1.5em; margin:0;">Проектирование систем.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section data-transition="slide">
+                <h2 style="text-align: center; margin-bottom: 80px; font-size: 5em;">Арсенал Инженера</h2>
+                <div class="grid-2">
+                    <div class="glass-card" style="text-align: center;">
+                        <h3 style="font-size: 4em; color: var(--blue);">VS Code</h3>
+                        <p style="font-size: 2em; text-align: center;">Среда разработки (IDE)</p>
+                    </div>
+                    <div class="glass-card" style="text-align: center;">
+                        <h3 style="font-size: 4em; color: var(--orange);">Git & GitHub</h3>
+                        <p style="font-size: 2em; text-align: center;">Машина времени для кода</p>
+                    </div>
+                    <div class="glass-card" style="text-align: center;">
+                        <h3 style="font-size: 4em; color: var(--purple);">Jira / Figma</h3>
+                        <p style="font-size: 2em; text-align: center;">Задачи и дизайн-макеты</p>
+                    </div>
+                    <div class="glass-card" style="text-align: center;">
+                        <h3 style="font-size: 4em; color: var(--green);">Terminal</h3>
+                        <p style="font-size: 2em; text-align: center;">Власть над сервером</p>
+                    </div>
+                </div>
+            </section>
+
+            <section data-transition="slide">
+                <div style="text-align: center; margin-bottom: 50px;">
+                    <div class="badge">Game On</div>
+                    <h2 style="font-size: 4.5em;">Хватит теории.</h2>
+                    <p style="font-size: 2.5em; text-align: center; color: #fff;">
+                        Эта игра написана на JavaScript прямо внутри слайда.
+                    </p>
+                </div>
+
+                <div class="glass-card" style="max-width: 600px; margin: 0 auto; padding: 40px; align-items: center; background: #111;">
+                    <canvas id="snakeCanvas" width="400" height="400" style="background: #000; border: 4px solid var(--green); border-radius: 12px;"></canvas>
+                    
+                    <div class="controls">
+                        <div></div>
+                        <button class="ctrl-btn" onclick="setDir(0, -1)">W</button>
+                        <div></div>
+                        <button class="ctrl-btn" onclick="setDir(-1, 0)">A</button>
+                        <button class="ctrl-btn" onclick="setDir(0, 1)">S</button>
+                        <button class="ctrl-btn" onclick="setDir(1, 0)">D</button>
+                    </div>
+                </div>
+
+                <script>
+                    const cvs = document.getElementById("snakeCanvas");
+                    const ctx = cvs.getContext("2d");
+                    const box = 20;
+                    let snake = [{x: 9*box, y: 10*box}];
+                    let food = {x: Math.floor(Math.random()*19+1)*box, y: Math.floor(Math.random()*19+1)*box};
+                    let d;
+
+                    // Click Controls to avoid Reveal.js arrow conflict
+                    function setDir(x, y) {
+                        if(x === -1 && d !== "RIGHT") d = "LEFT";
+                        else if(x === 1 && d !== "LEFT") d = "RIGHT";
+                        else if(y === -1 && d !== "DOWN") d = "UP";
+                        else if(y === 1 && d !== "UP") d = "DOWN";
+                    }
+
+                    // Keyboard W A S D
+                    document.addEventListener("keydown", direction);
+                    function direction(event){
+                        let key = event.keyCode;
+                        if(key == 65 && d != "RIGHT") d = "LEFT";
+                        else if(key == 87 && d != "DOWN") d = "UP";
+                        else if(key == 68 && d != "LEFT") d = "RIGHT";
+                        else if(key == 83 && d != "UP") d = "DOWN";
+                    }
+
+                    function draw() {
+                        ctx.fillStyle = "#000"; ctx.fillRect(0, 0, 400, 400);
+                        for(let i=0; i<snake.length; i++){
+                            ctx.fillStyle = (i===0) ? "#30d158" : "#fff";
+                            ctx.fillRect(snake[i].x, snake[i].y, box, box);
+                        }
+                        ctx.fillStyle = "#ff453a"; ctx.fillRect(food.x, food.y, box, box);
+                        
+                        let snakeX = snake[0].x; let snakeY = snake[0].y;
+                        if(d === "LEFT") snakeX -= box;
+                        if(d === "UP") snakeY -= box;
+                        if(d === "RIGHT") snakeX += box;
+                        if(d === "DOWN") snakeY += box;
+
+                        if(snakeX == food.x && snakeY == food.y){
+                            food = {x: Math.floor(Math.random()*19+1)*box, y: Math.floor(Math.random()*19+1)*box};
+                        } else { snake.pop(); }
+
+                        let newHead = {x: snakeX, y: snakeY};
+
+                        // Wall hit
+                        if(snakeX < 0 || snakeX > 19*box || snakeY < 0 || snakeY > 19*box) {
+                            snake = [{x: 9*box, y: 10*box}]; d = null; // Reset
+                        }
+                        snake.unshift(newHead);
+                    }
+                    setInterval(draw, 120);
+                </script>
+            </section>
+
+            <section data-transition="zoom">
+                <div style="text-align: center;">
+                    <h1 class="gradient-text" style="font-size: 8em; margin-bottom: 40px;">Create Future.</h1>
+                    <p style="font-size: 3em; text-align: center; color: #fff;">
+                        Добро пожаловать в игру.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.js"></script>
+    <script>
+        // INIT REVEAL
+        Reveal.initialize({
+            width: 1600, height: 900, margin: 0.05, minScale: 0.2, maxScale: 2.0,
+            center: true, hash: true, transition: 'fade', transitionSpeed: 'slow',
+            controls: false, progress: true,
+            keyboard: true // Keyboard works for slides, W/A/S/D works for game
+        });
+
+        // PARALLAX MOUSE
+        document.addEventListener('mousemove', function(e) {
+            const parallaxElements = document.querySelectorAll('.parallax-el');
+            const x = (window.innerWidth / 2 - e.pageX);
+            const y = (window.innerHeight / 2 - e.pageY);
+            parallaxElements.forEach(function(el) {
+                const speed = el.getAttribute('data-speed') || 1;
+                el.style.transform = `translate(${(x * speed) / 100}px, ${(y * speed) / 100}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

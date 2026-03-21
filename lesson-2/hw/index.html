@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG Профиль Разработчика</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="profile-card" id="playerCard">
+
+        <div class="avatar-container">
+            <img src="https://images.unsplash.com/photo-1566577739112-5180d4bf9390?auto=format&fit=crop&w=300&q=80"
+                alt="Аватар" class="avatar">
+            <div class="level-badge" id="levelDisplay">Lvl 1</div>
+        </div>
+
+        <h1 class="name">Твое Имя</h1>
+        <p class="class-title" id="classTitle">Класс: Новичок</p>
+
+        <div class="economy">
+            <h3>Баланс: <span id="coinsDisplay" class="coin-text">0</span> 🪙</h3>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span>HTML</span>
+                <div class="progress-bar">
+                    <div class="fill html-fill"></div>
+                </div>
+            </div>
+            <div class="stat-item">
+                <span>CSS</span>
+                <div class="progress-bar">
+                    <div class="fill css-fill"></div>
+                </div>
+            </div>
+            <div class="stat-item">
+                <span>JS</span>
+                <div class="progress-bar">
+                    <div class="fill js-fill" id="jsProgress"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="action-btn train-btn" id="trainHtmlBtn">Учить HTML (+10 XP)</button>
+            <button class="action-btn train-btn" id="trainCssBtn">Учить CSS (+10 XP)</button>
+            <button class="action-btn train-btn" id="trainJsBtn">Учить JS (+20 XP, +10 🪙)</button>
+
+            <button class="action-btn buy-btn" id="buyBtn">Легендарка (100 🪙)</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

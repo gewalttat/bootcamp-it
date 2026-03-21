@@ -1,0 +1,166 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: #1a1a1d;
+    /* Темный геймерский фон */
+    display: flex;
+    /* Центрируем карточку по центру экрана */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+}
+
+/* Сама карточка */
+.profile-card {
+    background: #2d2d34;
+    width: 350px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border: 2px solid #4a4e69;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Ховер на карточку из домашки (улучшенный) */
+.profile-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(220, 20, 60, 0.4);
+    /* Красное свечение */
+    border-color: crimson;
+}
+
+/* --- ПОЗИЦИОНИРОВАНИЕ --- */
+.avatar-container {
+    position: relative;
+    /* "Комната" для бейджа */
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px auto;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #4a4e69;
+}
+
+.level-badge {
+    position: absolute;
+    /* "Муха" */
+    bottom: 5px;
+    right: 5px;
+    background: crimson;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    border: 2px solid #2d2d34;
+}
+
+/* --- Тексты --- */
+.name {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.class-title {
+    color: #9a9cae;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* --- FLEXBOX --- */
+.stats {
+    display: flex;
+    flex-direction: column;
+    /* Элементы в колонку */
+    gap: 15px;
+    /* Расстояние между ними */
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    /* Текст слева, полоска справа */
+    align-items: center;
+}
+
+.stat-item span {
+    width: 50px;
+    font-weight: bold;
+}
+
+/* Полоски прогресса (основа для JS) */
+.progress-bar {
+    flex-grow: 1;
+    /* Занимает всё оставшееся место */
+    background: #1a1a1d;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.3s ease;
+}
+
+.html-fill {
+    background: #e34f26;
+    width: 80%;
+}
+
+.css-fill {
+    background: #264de4;
+    width: 60%;
+}
+
+.js-fill {
+    background: #f7df1e;
+    width: 10%;
+}
+
+/* JS пока на нуле! */
+
+/* Кнопка */
+.action-btn {
+    background: linear-gradient(90deg, crimson, #ff4757);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.action-btn:hover {
+    filter: brightness(1.2);
+    transform: scale(1.05);
+}
+
+
+/* если будет время */
+
+#achievements {
+    margin: 20px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}

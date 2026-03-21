@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Мой Профиль</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="profile-card">
+
+        <div class="avatar-container">
+            <img src="https://images.unsplash.com/photo-1566577739112-5180d4bf9390?auto=format&fit=crop&w=300&q=80"
+                alt="Аватар" class="avatar">
+
+            <div class="level-badge" id="levelDisplay">Lvl 1</div>
+        </div>
+
+        <h1 class="name">Имя "Никнейм" Фамилия</h1>
+        <p class="class-title">Класс: Фронтенд-Воин</p>
+
+        <div class="stats">
+
+            <div class="stat-item">
+                <span>HTML</span>
+                <div class="progress-bar">
+                    <div class="fill html-fill"></div>
+                </div>
+            </div>
+
+            <div class="stat-item">
+                <span>CSS</span>
+                <div class="progress-bar">
+                    <div class="fill css-fill"></div>
+                </div>
+            </div>
+
+            <div class="stat-item">
+                <span>JS</span>
+                <div class="progress-bar">
+                    <div class="fill js-fill" id="jsProgress"></div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="achievements"></div>
+
+        <button class="action-btn" id="trainBtn">Тренировка (+10 XP)</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
