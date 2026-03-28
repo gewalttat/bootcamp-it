@@ -57,21 +57,24 @@ function checkClass() {
 // 5. Покупка легендарки
 function tryBuyLegendary() {
     // как только вы реализуете логику получения монет, покупка легендарки станет доступной
-    if (typeof coins === "undefined") {
-        alert("Ошибка: переменная coins не найдена");
-        return;
-    }
+    // if (typeof coins === "undefined") {
+    //     alert("Ошибка: переменная coins не найдена");
+    //     return;
+    // }
 
-    if (coins >= 100) {
-        coins = coins - 100;
-        playerCard.classList.add("legendary");
+    // if (coins >= 100) {
+    //     coins = coins - 100;
+    //     playerCard.classList.add("legendary");
+    //     buyBtn.textContent = "Уже Легенда!";
+    //     buyBtn.disabled = true;
+    //     updateUI();
+    // } else {
+    //     let need = 100 - coins;
+    //     alert("Не хватает золота! Нужно еще " + need + " 🪙");
+    // }
+            playerCard.classList.add("legendary");
         buyBtn.textContent = "Уже Легенда!";
         buyBtn.disabled = true;
-        updateUI();
-    } else {
-        let need = 100 - coins;
-        alert("Не хватает золота! Нужно еще " + need + " 🪙");
-    }
 }
 
 
