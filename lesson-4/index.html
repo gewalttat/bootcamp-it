@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL: OMNI-SCAN v4.0</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="vignette"></div>
+    <div class="scanlines"></div>
+
+    <div class="terminal-container">
+        <header class="terminal-nav">
+            <span class="brand">SYSTEM_RECON_UNIT // MULTI-SOURCE</span>
+            <span class="status pulse">NET_CONNECTED</span>
+        </header>
+
+        <main id="display" class="terminal-body">
+            <p class="system-msg">> ИНИЦИАЛИЗАЦИЯ УНИВЕРСАЛЬНОГО СКАНЕРА...</p>
+            <p class="system-msg">> ВЫБЕРИТЕ ИСТОЧНИК ДАННЫХ И ВВЕДИТЕ ЗАПРОС.</p>
+            <div id="result-card" class="result-card hidden"></div>
+        </main>
+
+        <footer class="terminal-footer">
+<div class="api-switcher">
+    <button onclick="setMode('github')" id="btn-github" class="mode-btn active">GITHUB_SCAN</button>
+    <button onclick="setMode('crypto')" id="btn-crypto" class="mode-btn">CRYPTO_TICKER</button>
+    <button onclick="setMode('weather')" id="btn-weather" class="mode-btn">METEO_SATELLITE</button>
+</div>
+            
+            <div class="input-line">
+                <span id="prompt-text" class="prompt">root@github:~#</span>
+                <input type="text" id="targetInput" placeholder="username..." autocomplete="off">
+            </div>
+            <button id="traceBtn" class="cyber-btn">ВЫПОЛНИТЬ ЗАПРОС</button>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
