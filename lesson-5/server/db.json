@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "category": "Одежда и обувь",
+    "title": "Футболка базовая оверсайз",
+    "brand": "ModaStyle",
+    "price": 850,
+    "oldPrice": 1600,
+    "rating": 4.8,
+    "img": "images/12.webp"
+  },
+  {
+    "id": 2,
+    "category": "Одежда и обувь",
+    "title": "Кроссовки беговые летние",
+    "brand": "SportLine",
+    "price": 3200,
+    "oldPrice": 5500,
+    "rating": 4.5,
+    "img": "images/12.webp"
+  },
+  {
+    "id": 3,
+    "category": "Электроника",
+    "title": "Смартфон X12 Pro 256GB",
+    "brand": "TechnoBro",
+    "price": 15990,
+    "oldPrice": 24000,
+    "rating": 4.9,
+    "img": "images/12.webp"
+  },
+  {
+    "id": 4,
+    "category": "Одежда и обувь",
+    "title": "Носки хлопок, набор 5 пар",
+    "brand": "NoName",
+    "price": 450,
+    "oldPrice": 900,
+    "rating": 4.2,
+    "img": "images/12.webp"
+  },
+  {
+    "id": 5,
+    "category": "Все",
+    "title": "Рюкзак городской",
+    "brand": "UrbanBack",
+    "price": 1200,
+    "oldPrice": 2500,
+    "rating": 4.7,
+    "img": "images/12.webp"
+  },
+  {
+    "id": 6,
+    "category": "Электроника",
+    "title": "Наушники беспроводные",
+    "brand": "SoundWave",
+    "price": 990,
+    "oldPrice": 1990,
+    "rating": 4.6,
+    "img": "images/12.webp"
+  }
+]

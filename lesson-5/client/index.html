@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>WB Junior</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">WILDBERRIES <span class="badge-jr">Junior</span></div>
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Я ищу...">
+        </div>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <button class="cart-btn" onclick="openAddProductModal()" style="padding: 8px 15px; background: #cb11ab; border: none; border-radius: 5px; color: white; cursor: pointer; font-size: 14px;">➕ Добавить товар</button>
+            <div class="cart-btn" onclick="openCart()">
+                🛒 Корзина <span id="cart-counter" class="cart-counter">0</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="categories">
+            <button class="cat-btn active" onclick="filterCategory('Все')">Все товары</button>
+            <button class="cat-btn" onclick="filterCategory('Одежда и обувь')">Одежда и обувь</button>
+            <button class="cat-btn" onclick="filterCategory('Электроника')">Электроника</button>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+            <h2 class="section-title">Хиты продаж</h2>
+            <div style="gap: 10px; display: flex; flex-wrap: wrap;">
+                <button class="cat-btn" onclick="sortByPrice('asc')" title="Сортировка по цене: дешевле">💰 Дешевле</button>
+                <button class="cat-btn" onclick="sortByPrice('desc')" title="Сортировка по цене: дороже">💸 Дороже</button>
+                <button class="cat-btn" onclick="sortByRating()" title="Сортировка по рейтингу">⭐ Лучшие</button>
+                <button class="cat-btn" onclick="sortByDiscount()" title="Сортировка по скидке">🎁 Скидки</button>
+            </div>
+        </div>
+        <div id="goods-container" class="goods-grid"></div>
+    </main>
+
+    <div id="modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div id="modal-body" class="modal-flex"></div>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="modal-overlay">
+        <div class="modal-content" style="width: 500px;">
+            <button class="modal-close" onclick="closeCart()">×</button>
+            <h2>Ваша корзина</h2>
+
+            <div id="cart-list" style="margin-top: 20px; min-height: 100px;"></div>
+
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+            <h3 style="text-align: right;">Итого: <span id="cart-total" style="color: #cb11ab;">0</span> ₽</h3>
+            <button class="btn-primary" onclick="checkoutOrder()">Оформить заказ</button>
+        </div>
+    </div>
+
+    <!-- Модаль для добавления товара -->
+    <div id="add-product-modal" class="modal-overlay">
+        <div class="modal-content" style="width: 600px; max-height: 90vh; overflow-y: auto;">
+            <button class="modal-close" onclick="closeAddProductModal()">×</button>
+            <h2>➕ Добавить новый товар</h2>
+
+            <form id="add-product-form" style="margin-top: 20px;">
+                <div style="display: grid; gap: 15px;">
+                    <!-- Категория -->
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Категория *</label>
+                        <select name="category" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
+                            <option value="">Выбери категорию</option>
+                            <option value="Одежда и обувь">Одежда и обувь</option>
+                            <option value="Электроника">Электроника</option>
+                            <option value="Все">Другое</option>
+                        </select>
+                    </div>
+
+                    <!-- Бренд -->
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Бренд *</label>
+                        <input type="text" name="brand" placeholder="Например: Apple, Nike, Sony" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; box-sizing: border-box;">
+                    </div>
+
+                    <!-- Название товара -->
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Название товара *</label>
+                        <input type="text" name="title" placeholder="Например: iPhone 15 Pro" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; box-sizing: border-box;">
+                    </div>
+
+                    <!-- Цена -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Текущая цена (₽) *</label>
+                            <input type="number" name="price" placeholder="9999" min="1" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Старая цена (₽) *</label>
+                            <input type="number" name="oldPrice" placeholder="19999" min="1" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; box-sizing: border-box;">
+                        </div>
+                    </div>
+
+                    <!-- Рейтинг -->
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Рейтинг (0-5) *</label>
+                        <input type="number" name="rating" placeholder="4.5" min="0" max="5" step="0.1" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; box-sizing: border-box;">
+                    </div>
+
+                    <!-- Ссылка на изображение -->
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">URL изображения *</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="url" name="img" placeholder="https://images.unsplash.com/..." required style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; box-sizing: border-box;">
+                            <button type="button" onclick="fillRandomImage()" style="padding: 10px 15px; background: #74c0fc; border: none; border-radius: 5px; color: white; cursor: pointer; white-space: nowrap;">🎲 Случайно</button>
+                        </div>
+                    </div>
+
+                    <!-- Кнопки -->
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <button type="submit" class="btn-primary" style="flex: 1;">✓ Добавить товар</button>
+                        <button type="button" onclick="closeAddProductModal()" style="flex: 1; padding: 10px; background: #ddd; border: none; border-radius: 5px; cursor: pointer;">✕ Отмена</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модули приложения -->
+    <script src="modules/api.js"></script>
+    <script src="modules/storage.js"></script>
+    <script src="modules/cart.js"></script>
+    <script src="modules/catalog.js"></script>
+    <script src="modules/filter.js"></script>
+    <script src="modules/header.js"></script>
+    <script src="modules/admin.js"></script>
+    <script src="modules/main.js"></script>
+</body>
+
+</html>
