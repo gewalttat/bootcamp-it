@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WB Junior Clone - Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .presentation {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            padding: 80px 60px;
+            min-height: 600px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Слайд 1 - Титульный */
+        .slide-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .slide-title h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide-title .subtitle {
+            font-size: 1.5em;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .slide-title .emoji-large {
+            font-size: 5em;
+            margin: 30px 0;
+        }
+
+        /* Основные стили слайдов */
+        h2 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p, li {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .tech-card {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .tech-card strong {
+            color: #667eea;
+            font-size: 1.1em;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .architecture-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .code-block .keyword { color: #66d9ef; }
+        .code-block .string { color: #e6db74; }
+        .code-block .function { color: #a1efe4; }
+        .code-block .comment { color: #75715e; }
+
+        .module-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .module-item {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .module-item strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .module-item code {
+            background: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 12px;
+            margin: 10px 0;
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .feature-list li::before {
+            content: "✨ ";
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* Навигация */
+        .slide-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background: #f5f5f5;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+
+        .slide-counter {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        /* Чекбокс */
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.05em;
+        }
+
+        .checklist li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        /* Диаграмма */
+        .diagram {
+            text-align: center;
+            padding: 30px;
+            background: #f5f7fa;
+            border-radius: 10px;
+            margin: 25px 0;
+            font-family: monospace;
+        }
+
+        .diagram-arrow {
+            display: inline-block;
+            color: #667eea;
+            font-size: 1.5em;
+            margin: 0 15px;
+        }
+
+        .component {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin: 10px;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background: #fffacd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #333;
+        }
+
+        /* Таблица */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.05em;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        /* Завершающий слайд */
+        .slide-conclusion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .slide-conclusion h2 {
+            color: white;
+            border-bottom-color: white;
+        }
+
+        .slide-conclusion p {
+            color: white;
+            font-size: 1.3em;
+        }
+
+        .thanks {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- СЛАЙД 1: Титул -->
+        <div class="slide slide-title active">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <div class="emoji-large">🛍️</div>
+                <h1>WB Junior Clone</h1>
+                <div class="subtitle">Архитектура и технологии проекта</div>
+                <div class="subtitle" style="font-size: 1.2em; opacity: 0.8; margin-top: 40px;">
+                    E-Commerce приложение на JavaScript + Node.js
+                </div>
+            </div>
+        </div>
+
+        <!-- СЛАЙД 2: Обзор проекта -->
+        <div class="slide">
+            <h2>📋 Обзор проекта</h2>
+            <div>
+                <h3>Что такое WB Junior Clone?</h3>
+                <ul>
+                    <li><strong>Клон маркетплейса Wildberries</strong> - упрощенная версия для обучения</li>
+                    <li><strong>E-Commerce приложение</strong> - полный цикл: каталог → корзина → оформление</li>
+                    <li><strong>Демонстрация модульной архитектуры</strong> - логично организованный código</li>
+                    <li><strong>Двухуровневая архитектура</strong> - отдельно frontend и backend</li>
+                </ul>
+
+                <h3>Основные возможности:</h3>
+                <ul class="feature-list">
+                    <li>Просмотр каталога товаров</li>
+                    <li>Поиск и фильтрация товаров</li>
+                    <li>Добавление товаров в корзину</li>
+                    <li>Управление товарами (добавление, удаление) через админ-панель</li>
+                    <li>Сохранение данных в localStorage и на сервере</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- СЛАЙД 3: Языки и технологии -->
+        <div class="slide">
+            <h2>🔧 Языки и технологии</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <strong>🌐 Frontend</strong>
+                    <p><strong>HTML5</strong> - структура страницы</p>
+                    <p><strong>CSS3</strong> - стилизация и адаптивность</p>
+                    <p><strong>JavaScript (ES6+)</strong> - интерактивность</p>
+                </div>
+
+                <div class="tech-card">
+                    <strong>⚙️ Backend</strong>
+                    <p><strong>Node.js</strong> - runtime JavaScript на сервере</p>
+                    <p><strong>Express.js</strong> - веб-фреймворк</p>
+                    <p><strong>JSON</strong> - база данных (db.json)</p>
+                </div>
+
+                <div class="tech-card">
+                    <strong>🔌 Протоколы и API</strong>
+                    <p><strong>REST API</strong> - взаимодействие client-server</p>
+                    <p><strong>HTTP методы</strong> - GET, POST, PUT, DELETE</p>
+                    <p><strong>CORS</strong> - кроссдоменные запросы</p>
+                </div>
+
+                <div class="tech-card">
+                    <strong>💾 Хранилище данных</strong>
+                    <p><strong>localStorage</strong> - сохранение на клиенте (корзина)</p>
+                    <p><strong>JSON файл</strong> - сохранение на сервере (товары)</p>
+                    <p><strong>fs модуль</strong> - работа с файлами</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- СЛАЙД 4: Архитектура -->
+        <div class="slide">
+            <h2>🏗️ Архитектурное решение</h2>
+            <h3>Клиент-Серверная архитектура</h3>
+            <div class="diagram">
+                <div class="component">BROWSER</div>
+                <div class="component">HTML/CSS/JS</div>
+                <div class="diagram-arrow">↔️</div>
+                <div class="component">EXPRESS SERVER</div>
+                <div class="component">REST API</div>
+                <div class="diagram-arrow">↔️</div>
+                <div class="component">db.json</div>
+            </div>
+
+            <h3>Слои приложения:</h3>
+            <ul>
+                <li><strong>Presentation Layer (UI)</strong> - HTML/CSS, отображение магазина</li>
+                <li><strong>Business Layer</strong> - JavaScript модули (логика фильтрации, корзины)</li>
+                <li><strong>Data Layer</strong> - API сервер, работа с БД</li>
+            </ul>
+
+            <h3>Паттерн MVC-подобный:</h3>
+            <ul>
+                <li><strong>Model</strong> - структура товаров (api.js)</li>
+                <li><strong>View</strong> - отображение (catalog.js, header.js)</li>
+                <li><strong>Controller</strong> - логика обработки (filter.js, cart.js)</li>
+            </ul>
+        </div>
+
+        <!-- СЛАЙД 5: Модульная архитектура Frontend -->
+        <div class="slide">
+            <h2>📁 Модульная архитектура Frontend</h2>
+            <p>JavaScript разделен на <strong>8 независимых модулей</strong>, каждый отвечает за свою задачу:</p>
+
+            <div class="module-list">
+                <div class="module-item">
+                    <strong>🌐 api.js</strong>
+                    <p>Загрузка данных с сервера, HTTP запросы</p>
+                </div>
+                <div class="module-item">
+                    <strong>💾 storage.js</strong>
+                    <p>Работа с localStorage (сохранение корзины)</p>
+                </div>
+                <div class="module-item">
+                    <strong>🛒 cart.js</strong>
+                    <p>Логика управления корзиной</p>
+                </div>
+                <div class="module-item">
+                    <strong>📺 catalog.js</strong>
+                    <p>Отрисовка товаров на странице</p>
+                </div>
+                <div class="module-item">
+                    <strong>🔍 filter.js</strong>
+                    <p>Фильтрация, сортировка товаров</p>
+                </div>
+                <div class="module-item">
+                    <strong>📋 header.js</strong>
+                    <p>Функции хедера, поиск, корзина</p>
+                </div>
+                <div class="module-item">
+                    <strong>👨‍💼 admin.js</strong>
+                    <p>Добавление/удаление товаров на сервере</p>
+                </div>
+                <div class="module-item">
+                    <strong>🚀 main.js</strong>
+                    <p>Инициализация приложения, точка входа</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>Преимущества:</strong> код легко масштабировать, тестировать и поддерживать</p>
+        </div>
+
+        <!-- СЛАЙД 6: Backend структура -->
+        <div class="slide">
+            <h2>🖥️ Backend архитектура</h2>
+
+            <h3>Express.js сервер (server.js)</h3>
+            <div class="code-block">
+const <span class="keyword">express</span> = <span class="function">require</span>(<span class="string">'express'</span>);
+const <span class="keyword">cors</span> = <span class="function">require</span>(<span class="string">'cors'</span>);
+const <span class="keyword">PORT</span> = <span class="string">3000</span>;
+
+const <span class="keyword">app</span> = <span class="function">express</span>();
+app.<span class="function">use</span>(<span class="function">cors</span>());  <span class="comment">// Разрешаем запросы с фронтенда</span>
+            </div>
+
+            <h3>REST API endpoints:</h3>
+            <table>
+                <tr>
+                    <th>Метод</th>
+                    <th>Endpoint</th>
+                    <th>Описание</th>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>/api/products</td>
+                    <td>Получить все товары</td>
+                </tr>
+                <tr>
+                    <td>POST</td>
+                    <td>/api/products</td>
+                    <td>Добавить новый товар</td>
+                </tr>
+                <tr>
+                    <td>PUT</td>
+                    <td>/api/products/:id</td>
+                    <td>Обновить товар</td>
+                </tr>
+                <tr>
+                    <td>DELETE</td>
+                    <td>/api/products/:id</td>
+                    <td>Удалить товар</td>
+                </tr>
+            </table>
+
+            <h3>База данных: db.json</h3>
+            <p>Простой JSON файл с массивом товаров (вместо SQL БД) - удобно для обучения!</p>
+        </div>
+
+        <!-- СЛАЙД 7: Поток данных -->
+        <div class="slide">
+            <h2>🔄 Поток данных в приложении</h2>
+
+            <h3>1️⃣ Загрузка товаров:</h3>
+            <div class="architecture-box" style="text-align: center;">
+                main.js → api.js → fetch('/api/products')<br>
+                ↓<br>
+                server.js (Express) → readDB() из db.json<br>
+                ↓<br>
+                catalog.js → renderGoods() → HTML в браузер
+            </div>
+
+            <h3>2️⃣ Добавление товара в корзину:</h3>
+            <div class="architecture-box" style="text-align: center;">
+                User clicks "Добавить в корзину"<br>
+                ↓<br>
+                cart.js addToCart(id)<br>
+                ↓<br>
+                storage.js saveCart() → localStorage<br>
+                ↓<br>
+                UI update (счетчик товаров)
+            </div>
+
+            <h3>3️⃣ Создание нового товара через админ:</h3>
+            <div class="architecture-box" style="text-align: center;">
+                admin.js (форма) → api.js (POST)<br>
+                ↓<br>
+                server.js → writeDB() в db.json<br>
+                ↓<br>
+                response → loadGoods() → новый товар в каталоге
+            </div>
+        </div>
+
+        <!-- СЛАЙД 8: Ключевые концепции -->
+        <div class="slide">
+            <h2>🎯 Ключевые концепции программирования</h2>
+
+            <h3>1. Модульность (Modularity)</h3>
+            <ul>
+                <li>Код разбит на отдельные файлы-модули</li>
+                <li>Каждый модуль отвечает за одну задачу (Single Responsibility)</li>
+                <li>Легко тестировать и переиспользовать</li>
+            </ul>
+
+            <h3>2. REST API и HTTP</h3>
+            <ul>
+                <li>GET - получение данных</li>
+                <li>POST - создание</li>
+                <li>PUT - обновление</li>
+                <li>DELETE - удаление</li>
+            </ul>
+
+            <h3>3. Асинхронность (Async/Await)</h3>
+            <ul>
+                <li>Fetch API для HTTP запросов</li>
+                <li>Промисы - обещания результатов</li>
+                <li>Неблокирующие операции</li>
+            </ul>
+
+            <h3>4. Локальное хранилище (localStorage)</h3>
+            <ul>
+                <li>Сохранение данных на клиенте (браузер)</li>
+                <li>Данные сохраняются после закрытия вкладки</li>
+                <li>Идеально для кэша и настроек</li>
+            </ul>
+        </div>
+
+        <!-- СЛАЙД 9: Стек технологий (Tech Stack) -->
+        <div class="slide">
+            <h2>📚 Full Tech Stack</h2>
+
+            <h3>Frontend Stack:</h3>
+            <ul class="checklist">
+                <li>HTML5 (семантическая разметка)</li>
+                <li>CSS3 (Grid, Flexbox, медиазапросы)</li>
+                <li>Vanilla JavaScript ES6+ (без фреймворков!)</li>
+                <li>Fetch API для HTTP запросов</li>
+                <li>localStorage для персистентности</li>
+            </ul>
+
+            <h3>Backend Stack:</h3>
+            <ul class="checklist">
+                <li>Node.js (JavaScript runtime)</li>
+                <li>Express.js (веб фреймворк)</li>
+                <li>CORS middleware (разрешение кроссдоменных запросов)</li>
+                <li>fs модуль (работа с файлами)</li>
+                <li>JSON для хранения данных</li>
+            </ul>
+
+            <h3>Инструменты и Утилиты:</h3>
+            <ul class="checklist">
+                <li>npm (менеджер пакетов)</li>
+                <li>package.json (конфигурация проекта)</li>
+                <li>Git (версионирование кода)</li>
+            </ul>
+        </div>
+
+        <!-- СЛАЙД 10: Как запустить проект -->
+        <div class="slide">
+            <h2>▶️ Запуск проекта</h2>
+
+            <h3>1. Установка зависимостей сервера:</h3>
+            <div class="code-block">
+<span class="keyword">cd</span> server
+npm install
+            </div>
+
+            <h3>2. Запуск сервера:</h3>
+            <div class="code-block">
+npm start
+<span class="comment">// Сервер запущен на http://localhost:3000</span>
+            </div>
+
+            <h3>3. Открыть клиент:</h3>
+            <div class="code-block">
+<span class="keyword">cd</span> ../client
+<span class="comment">// Открыть index.html в браузере (или использовать Live Server)</span>
+            </div>
+
+            <h3>Готово! 🎉</h3>
+            <p>Приложение готово к использованию. Попробуйте:</p>
+            <ul>
+                <li>Поискать товары</li>
+                <li>Добавить товары в корзину</li>
+                <li>Отфильтровать по категориям</li>
+                <li>Добавить новый товар через админ-панель</li>
+            </ul>
+        </div>
+
+        <!-- СЛАЙД 11: Учебные цели -->
+        <div class="slide">
+            <h2>🎓 Что учащиеся изучат</h2>
+
+            <div class="module-list">
+                <div class="module-item">
+                    <strong>Frontend Development</strong>
+                    <p>HTML/CSS/JS, работа с DOM, события, fetch API</p>
+                </div>
+                <div class="module-item">
+                    <strong>Backend Development</strong>
+                    <p>Node.js, Express.js, REST API, работа с файлами</p>
+                </div>
+                <div class="module-item">
+                    <strong>Архитектура</strong>
+                    <p>Модульность, MVC, клиент-серверная архитектура</p>
+                </div>
+                <div class="module-item">
+                    <strong>Асинхронность</strong>
+                    <p>Promises, async/await, HTTP запросы</p>
+                </div>
+                <div class="module-item">
+                    <strong>DevTools</strong>
+                    <p>npm, package.json, консоль браузера, Network tab</p>
+                </div>
+                <div class="module-item">
+                    <strong>Почему это важно</strong>
+                    <p>Все эти концепции применяются в реальной работе</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- СЛАЙД 12: Возможности расширения -->
+        <div class="slide">
+            <h2>🚀 Возможности расширения проекта</h2>
+
+            <h3>Для усложнения:</h3>
+            <ul>
+                <li>✅ <strong>Аутентификация</strong> - логин/пароль, JWT токены</li>
+                <li>✅ <strong>Настоящая БД</strong> - MongoDB, PostgreSQL вместо JSON</li>
+                <li>✅ <strong>ORM</strong> - Sequelize, TypeORM для работы с БД</li>
+                <li>✅ <strong>Frontend фреймворк</strong> - React, Vue вместо Vanilla JS</li>
+                <li>✅ <strong>Payment интеграция</strong> - Stripe, Yandex.Kassa</li>
+                <li>✅ <strong>Testing</strong> - Jest, Mocha для тестирования</li>
+                <li>✅ <strong>Deployment</strong> - Heroku, AWS, Vercel</li>
+            </ul>
+
+            <h3>Для практики:</h3>
+            <ul>
+                <li>Добавить рейтинговую систему товаров</li>
+                <li>Реализовать избранное (Favorites)</li>
+                <li>Добавить фильтрацию по цене (ползунок)</li>
+                <li>Интеграция с реальным маркетплейсом API</li>
+            </ul>
+        </div>
+
+        <!-- СЛАЙД 13: Заключение -->
+        <div class="slide slide-conclusion">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <div class="thanks">Спасибо за внимание! 👏</div>
+                <h2>Вопросы?</h2>
+                <p style="margin-top: 40px;">
+                    WB Junior Clone демонстрирует как работает<br>
+                    <strong>настоящее полнофункциональное веб-приложение</strong>
+                </p>
+                <p style="margin-top: 30px; opacity: 0.9;">
+                    Попробуйте расширить функциональность!<br>
+                    Это отличный способ научиться программировать.
+                </p>
+            </div>
+        </div>
+
+        <!-- Навигация -->
+        <div class="slide-navigation">
+            <button onclick="previousSlide()">← Предыдущий</button>
+            <span class="slide-counter"><span id="current-slide">1</span> / <span id="total-slides">13</span></span>
+            <button onclick="nextSlide()">Следующий →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            if (n >= totalSlides) currentSlide = 0;
+            if (n < 0) currentSlide = totalSlides - 1;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        // Клавиатурная навигация
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        // Инициализация
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
