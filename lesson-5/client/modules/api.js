@@ -54,3 +54,11 @@ function searchGoods(query) {
                good.brand.toLowerCase().includes(q);
     });
 }
+
+/**
+ * Получить все уникальные категории из товаров
+ */
+function getCategories() {
+    const categories = new Set(goods.map(g => g.category).filter(Boolean));
+    return ['Все', ...Array.from(categories)];
+}

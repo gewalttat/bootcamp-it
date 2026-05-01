@@ -2,6 +2,27 @@
 // Модуль для фильтрации и сортировки товаров
 
 /**
+ * Инициализировать кнопки категорий из данных
+ */
+function initCategories() {
+    const container = document.querySelector('#categories-container');
+    if (!container) return;
+    
+    const categories = getCategories();
+    container.innerHTML = '';
+    
+    categories.forEach((cat, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'cat-btn' + (cat === 'Все' ? ' active' : '');
+        btn.textContent = cat === 'Все' ? 'Все товары' : cat;
+        btn.onclick = () => filterCategory(cat);
+        container.appendChild(btn);
+    });
+    
+    console.log("✓ Категории инициализированы:", categories);
+}
+
+/**
  * Фильтровать товары по категории
  */
 function filterCategory(categoryName) {
@@ -11,7 +32,10 @@ function filterCategory(categoryName) {
     // Обновляем активную кнопку
     document.querySelectorAll('.cat-btn').forEach(btn => {
         btn.classList.remove('active');
-        if (btn.textContent === categoryName) {
+        const btnText = btn.textContent;
+        // "Все товары" соответствует категории "Все"
+        if ((categoryName === 'Все' && btnText === 'Все товары') || 
+            btnText === categoryName) {
             btn.classList.add('active');
         }
     });
